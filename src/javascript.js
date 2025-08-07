@@ -9,24 +9,20 @@ const descInput  = document.getElementById("desc");
   const expenseBtn = document.getElementById("expenseBtn");
   const incomeList = document.getElementById("incomeList");
   const expenseList= document.getElementById("expenseList");
-  const balanceEL  = document.getElementById("balance");
+  const balanceEl  = document.getElementById("balance");
 
-function init() {
-  incomeBtn.addEventListener("click", () => addTransaction("income"));
-  expenseBtn.addEventListener("click", () => addTransaction("expense"));
-}
+if (!descInput || !amountInput ||!incomeBtn || !expenseBtn ||
+    !incomeList || !expenseList || !balanceE1) return;
+
   function addTransaction(type) {
     const description = descInput.value.trim();
     const amount      = Number(amountInput.value);
 
      if (!description || isNaN(amount) || amount <= 0) return;
 
-     const transaction = { description, amount };
-  if (type === "income") {
-    incomes.push(transaction);
-  } else {
-    expenses.push(transaction);
-  }
+     const obj = { description, amount };
+      (type === "income" ? incomes : expenses).push(obj);
+
       renderLists();
       updateBalance();
 
@@ -44,24 +40,27 @@ function init() {
       incomeList.appendChild(li);
     });
 
-expenses. forEach(t => {
+expenses. orEach(t => {
       const li = document.createElement("li");
       li.textContent = `${t.description} - ${t.amount} kr (Utgift)`;
       expenseList.appendChild(li);
     });
   }
 
-function updateBalance() {
-  const totalIncome = incomes.reduce((sum, t) => sum + t.amount, 0);
-  const totalExpenses = expenses.reduce((sum, t) => sum + t.amount, 0);
-  const balance = totalIncome - totalExpenses;
-  balanceEL.textContent = balance;
+function unction updateBalance() {
+    const total =
+      incomes .reduce((s, t) => s + t.amount, 0) -
+      expenses.reduce((s, t) => s + t.amount, 0);npm 
+
+    balanceEl.textContent = total;
+  }
+
+ incomeBtn .addEventListener("click", () => addTransaction("income"));
+  expenseBtn.addEventListener("click", () => addTransaction("expense"));
 }
 
-    
- if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
+if (document.readystate === "loading"){
+    document.addEventListener ("DOMContentLoaded", init);
 } else {
-  init();
+  init();          
 }
-
